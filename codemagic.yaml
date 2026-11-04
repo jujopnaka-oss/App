@@ -7,7 +7,7 @@ workflows:
       groups:
         - android_credentials
       flutter: stable
-      xcode: stable
+      xcode: latest
       cocoapods: default
     triggering:
       events:
