@@ -2,9 +2,13 @@ workflows:
   android-workflow:
     name: Android Workflow
     max_build_duration: 60
-    instance_type: linux_x2
+    instance_type: mac_mini_m1
     environment:
+      groups:
+        - android_credentials
       flutter: stable
+      xcode: latest
+      cocoapods: default
     triggering:
       events:
         - push
@@ -13,15 +17,14 @@ workflows:
           include: true
           source: true
     scripts:
-      - name: Generate Android platform files
+      - name: Set up local.properties
         script: |
-          cp lib/main.dart /tmp/main.dart
-          flutter create --platforms=android --project-name chefmate_hub --org com.chefmate .
-          cp /tmp/main.dart lib/main.dart
-          rm -f test/widget_test.dart
+          echo "sdk.dir=$ANDROID_SDK_ROOT" > android/local.properties
       - name: Get Flutter packages
-        script: flutter pub get
+        script: |
+          flutter packages pub get
       - name: Build APK
-        script: flutter build apk --release
+        script: |
+          flutter build apk --release
     artifacts:
-      - build/**/outputs/**/*.apk
+      - build/app/outputs/flutter-apk/**/*.apk
