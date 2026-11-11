@@ -1,5 +1,5 @@
 name: chefmate_hub
-description: ChefMate Hub - gamified cooking and wellness app.
+description: Good Meal - cooking and wellness app.
 publish_to: 'none'
 version: 1.0.0+1
 
@@ -9,6 +9,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  google_fonts: ^6.2.1
+  image_picker: ^1.1.2
+  shared_preferences: ^2.3.2
 
 dev_dependencies:
   flutter_test:
@@ -16,3 +19,11 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets/images/
+  # หลังใส่ไฟล์ฟอนต์ Aston Script ที่ assets/fonts/AstonScript.ttf แล้ว
+  # ให้ลบเครื่องหมาย # หน้าบรรทัดด้านล่างนี้ และเปลี่ยน kUseAstonScript เป็น true ใน main.dart
+  # fonts:
+  #   - family: AstonScript
+  #     fonts:
+  #       - asset: assets/fonts/AstonScript.ttf

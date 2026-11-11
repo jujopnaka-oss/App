@@ -2,7 +2,7 @@ workflows:
   android-workflow:
     name: Android Workflow
     max_build_duration: 60
-    instance_type: mac_mini_m2
+    instance_type: linux_x2
     environment:
       flutter: stable
     triggering:
@@ -16,9 +16,14 @@ workflows:
       - name: Generate Android platform files
         script: |
           cp lib/main.dart /tmp/main.dart
+          cp pubspec.yaml /tmp/pubspec.yaml
           flutter create --platforms=android --project-name chefmate_hub --org com.chefmate .
           cp /tmp/main.dart lib/main.dart
+          cp /tmp/pubspec.yaml pubspec.yaml
           rm -f test/widget_test.dart
+      - name: Allow internet access (for Google Fonts)
+        script: |
+          sed -i 's#<application#<uses-permission android:name="android.permission.INTERNET"/>\n    <application#' android/app/src/main/AndroidManifest.xml
       - name: Get Flutter packages
         script: flutter pub get
       - name: Build APK
